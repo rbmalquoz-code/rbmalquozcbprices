@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reality Building Materials — Cement Board Price List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    --bg:#E4E1D8;
+    --card:#F4F2EC;
+    --ink:#201F1C;
+    --ink-soft:#5B584F;
+    --steel:#35526B;
+    --steel-dark:#233B4E;
+    --rust:#A8431E;
+    --line:#B9B3A5;
+    --line-soft:#D3CEC2;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.025) 0px, rgba(0,0,0,0.025) 1px, transparent 1px, transparent 3px);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    min-height:100vh;
+    padding:32px 16px 60px;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+  }
+
+  .band{
+    background:var(--steel-dark);
+    color:#EDEAE1;
+    padding:22px 26px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .band .mark{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:800;
+    font-size:28px;
+    letter-spacing:0.5px;
+    line-height:1;
+  }
+  .band .mark span{color:#D8A98A;}
+  .band .sub{
+    font-size:12.5px;
+    color:#C7CCD2;
+    margin-top:6px;
+    max-width:340px;
+    line-height:1.5;
+  }
+  .band .updated{
+    text-align:right;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:#C7CCD2;
+  }
+  .band .updated b{
+    display:block;
+    color:#EDEAE1;
+    font-size:15px;
+    font-weight:600;
+    margin-top:3px;
+  }
+
+  .tabs{
+    display:flex;
+    background:var(--steel-dark);
+    border-top:1px solid rgba(255,255,255,0.12);
+  }
+  .tab-btn{
+    flex:1;
+    background:transparent;
+    border:none;
+    color:#9FA9B3;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    padding:12px 10px;
+    cursor:pointer;
+    letter-spacing:0.2px;
+    border-bottom:3px solid transparent;
+    transition:color 0.15s ease, border-color 0.15s ease;
+  }
+  .tab-btn.active{
+    color:#EDEAE1;
+    border-bottom-color:var(--rust);
+  }
+  .tab-btn:not(.active):hover{ color:#D3D8DC; }
+
+  .view{ display:none; }
+  .view.active{ display:block; }
+
+  .list-intro{
+    padding:16px 2px 4px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .list-intro h1{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:700;
+    font-size:21px;
+    margin:0;
+  }
+  .list-intro .unit{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+
+  .brand-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    margin-top:14px;
+  }
+  .card-head{
+    padding:16px 22px 12px;
+    border-bottom:2px solid var(--ink);
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .card-head .co-tag{
+    font-size:10.5px;
+    letter-spacing:0.3px;
+    color:var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .card-head h2{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:700;
+    font-size:19px;
+    margin:2px 0 0;
+    color:var(--steel-dark);
+  }
+  .card-head .card-date{
+    text-align:right;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+  }
+  thead th{
+    text-align:left;
+    font-size:11px;
+    font-weight:600;
+    color:var(--ink-soft);
+    padding:9px 22px;
+    border-bottom:1px solid var(--line);
+  }
+  thead th.num{ text-align:right; }
+
+  tbody tr.item-row td{
+    padding:10px 22px;
+    border-bottom:1px solid var(--line-soft);
+    font-size:14.5px;
+  }
+  tbody tr.item-row:last-of-type td{
+    border-bottom:none;
+  }
+  td.size{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  td.price{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:15.5px;
+    text-align:right;
+  }
+  td.price .cur{
+    font-size:11px;
+    color:var(--ink-soft);
+    font-weight:500;
+    margin-right:3px;
+  }
+  td.price.na{
+    color:var(--ink-soft);
+    font-weight:500;
+    font-size:13px;
+    font-style:italic;
+    text-align:right;
+  }
+
+  .card-foot{
+    padding:12px 22px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:8px;
+    border-top:1px solid var(--line-soft);
+  }
+  .card-foot .co{
+    font-size:11.5px;
+    line-height:1.55;
+    color:var(--ink-soft);
+  }
+  .card-foot .co b{ color:var(--ink); }
+  .card-foot .price-note{
+    font-size:10.5px;
+    color:var(--ink-soft);
+    max-width:190px;
+    text-align:right;
+    line-height:1.4;
+  }
+
+  .brand-controls{
+    display:flex;
+    justify-content:flex-end;
+    padding:8px 2px 0;
+  }
+  .brand-controls button{
+    background:transparent;
+    color:var(--steel-dark);
+    border:1px solid var(--steel-dark);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:12px;
+    padding:7px 14px;
+    cursor:pointer;
+    letter-spacing:0.2px;
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  .brand-controls button:hover{ background:var(--steel-dark); color:#EDEAE1; }
+  .brand-controls button:disabled{ opacity:0.5; cursor:progress; }
+
+  .all-controls{
+    display:flex;
+    justify-content:flex-end;
+    padding:20px 2px 0;
+  }
+  button#downloadAllBtn{
+    background:var(--rust);
+    color:#F4F2EC;
+    border:none;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    padding:11px 20px;
+    cursor:pointer;
+    letter-spacing:0.2px;
+    transition:background 0.15s ease;
+  }
+  button#downloadAllBtn:hover{ background:#8C3717; }
+  button#downloadAllBtn:disabled{ background:#B9AFA5; cursor:progress; }
+
+  #editView{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:22px 26px 26px;
+    margin-top:14px;
+  }
+  .edit-notice{
+    font-size:12px;
+    color:var(--ink-soft);
+    background:var(--bg);
+    border:1px solid var(--line);
+    padding:10px 14px;
+    margin-bottom:18px;
+    display:none;
+  }
+  .edit-notice.show{ display:block; }
+  .edit-field{
+    margin-bottom:18px;
+  }
+  .edit-field label{
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin-bottom:5px;
+  }
+  .edit-field input[type=text]{
+    width:220px;
+    max-width:100%;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    padding:8px 10px;
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--ink);
+  }
+  .edit-brand{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:700;
+    font-size:18px;
+    color:var(--steel-dark);
+    margin:22px 0 10px;
+    padding-top:14px;
+    border-top:1px solid var(--line-soft);
+  }
+  .edit-brand:first-of-type{ border-top:none; padding-top:0; margin-top:4px; }
+  .edit-row{
+    display:grid;
+    grid-template-columns:70px 1fr;
+    align-items:center;
+    gap:14px;
+    padding:8px 0;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .edit-row .size-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .edit-row input.price-input{
+    width:140px;
+    max-width:100%;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14.5px;
+    font-weight:600;
+    padding:9px 10px;
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--ink);
+  }
+  .edit-row input.price-input::placeholder{ color:#B9B3A5; font-weight:400; }
+  .edit-hint{
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  .edit-actions{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:10px;
+    padding-top:20px;
+  }
+  button#saveBtn{
+    background:var(--steel);
+    color:#F4F2EC;
+    border:none;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    padding:11px 20px;
+    cursor:pointer;
+    letter-spacing:0.2px;
+  }
+  button#saveBtn:hover{ background:var(--steel-dark); }
+  button#saveBtn:disabled{ background:#B9AFA5; cursor:progress; }
+  .save-status{
+    font-size:12px;
+    color:var(--steel-dark);
+    opacity:0;
+    transition:opacity 0.2s ease;
+  }
+  .save-status.show{ opacity:1; }
+
+  @media (max-width:480px){
+    .card-head, thead th, tbody tr.item-row td, .card-foot, #editView{
+      padding-left:16px;
+      padding-right:16px;
+    }
+    .band{ padding:18px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!--
+  PRICE_STORE holds the live prices. When this page is published as a
+  shared Artifact link, saving from the Edit Prices tab republishes this
+  whole document with updated values here, so everyone with the link
+  sees the new prices. When opened as a plain local file, saving falls
+  back to this browser's storage instead.
+-->
+<script type="application/json" id="priceDataStore">
+{"date":"16 Sep 2026","data":[
+  {"brand":"Unicem","items":[
+    {"size":"6mm","price":43},
+    {"size":"9mm","price":56},
+    {"size":"12mm","price":75},
+    {"size":"18mm","price":108}
+  ]},
+  {"brand":"C-Board","items":[
+    {"size":"6mm","price":39},
+    {"size":"9mm","price":null},
+    {"size":"12mm","price":null},
+    {"size":"18mm","price":102}
+  ]},
+  {"brand":"El Khayyat","items":[
+    {"size":"6mm","price":37},
+    {"size":"9mm","price":null},
+    {"size":"12mm","price":null},
+    {"size":"18mm","price":null}
+  ]}
+]}
+</script>
+
+<div class="wrap">
+
+  <div class="band">
+    <div>
+      <div class="mark">REALITY <span>BUILDING MATERIALS</span></div>
+      <div class="sub">Trading LLC — Al Quoz Dubai · Sajaa Sharjah · Fujairah</div>
+    </div>
+    <div class="updated">PRICES UPDATED<b id="updatedDate">—</b></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="priceView">Price List</button>
+    <button class="tab-btn" data-tab="editView">Edit Prices</button>
+  </div>
+
+  <div id="priceView" class="view active">
+    <div class="list-intro">
+      <h1>Cement Board — Price List</h1>
+      <div class="unit">AED per sheet, ex-showroom</div>
+    </div>
+
+    <div id="brandCards"></div>
+
+    <div class="all-controls">
+      <button id="downloadAllBtn">Download full price list (JPG)</button>
+    </div>
+  </div>
+
+  <div id="editView" class="view">
+    <div class="edit-notice" id="editNotice"></div>
+    <div class="edit-field">
+      <label for="dateInput">Prices updated (shown at top of page)</label>
+      <input type="text" id="dateInput" placeholder="e.g. 16 Sep 2026">
+    </div>
+
+    <div id="editFields"></div>
+    <div class="edit-hint">Leave a price blank to show "On request" on the price list.</div>
+
+    <div class="edit-actions">
+      <span class="save-status" id="saveStatus">Saved ✓</span>
+      <button id="saveBtn">Save &amp; update price list</button>
+    </div>
+  </div>
+
+</div>
+
+<div id="captureAll" style="position:absolute; left:-9999px; top:0; width:760px;"></div>
+
+<script>
+  const DEFAULT_LAST_UPDATED = "16 Sep 2026";
+  const STORAGE_KEY = 'realitybm_price_data_v1';
+  const DATE_KEY = 'realitybm_price_updated_v1';
+  const CONTACT_HTML = `showroom@realitybm.com<br>+971 56 500 3029 · +971 56 680 3874`;
+
+  const dataEl = document.getElementById('priceDataStore');
+  function readEmbedded(){
+    try { return JSON.parse(dataEl.textContent); } catch(e){ return null; }
+  }
+  function writeEmbedded(s){ dataEl.textContent = JSON.stringify(s); }
+
+  let hasArtifactCapability = false;
+  let artifactApi = null;
+
+  let state = readEmbedded() || { date: DEFAULT_LAST_UPDATED, data: [] };
+
+  function loadLocalFallback(){
+    // Only used when this page has no shared-publish capability (a
+    // plain local file) — persists edits in this browser only.
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const dt = localStorage.getItem(DATE_KEY);
+      if (raw) state.data = JSON.parse(raw);
+      if (dt) state.date = dt;
+    }catch(e){ /* ignore */ }
+  }
+
+  function saveLocalFallback(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+      localStorage.setItem(DATE_KEY, state.date);
+    }catch(e){ console.error('Could not save to this browser:', e); }
+  }
+
+  function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); }
+
+  function tableRowsHTML(items){
+    return items.map(item => {
+      const priceCell = (item.price === null || item.price === undefined)
+        ? `<td class="price na">On request</td>`
+        : `<td class="price"><span class="cur">AED</span>${Number(item.price).toFixed(2)}</td>`;
+      return `<tr class="item-row"><td class="size">${item.size}</td>${priceCell}</tr>`;
+    }).join('');
+  }
+
+  function brandCardHTML(group, id){
+    return `
+      <div class="brand-card" id="${id}">
+        <div class="card-head">
+          <div>
+            <div class="co-tag">REALITY BUILDING MATERIALS TRADING LLC</div>
+            <h2>${group.brand} — Cement Board</h2>
+          </div>
+          <div class="card-date">AED / sheet<br>${state.date}</div>
+        </div>
+        <table>
+          <thead><tr><th>Size</th><th class="num">Price</th></tr></thead>
+          <tbody>${tableRowsHTML(group.items)}</tbody>
+        </table>
+        <div class="card-foot">
+          <div class="co"><b>Reality Building Materials</b><br>${CONTACT_HTML}</div>
+          <div class="price-note">Prices subject to change. Contact us for bulk / trader rates.</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderPriceList(){
+    document.getElementById('updatedDate').textContent = state.date;
+
+    const container = document.getElementById('brandCards');
+    container.innerHTML = '';
+    state.data.forEach(group => {
+      const id = 'capture-' + slug(group.brand);
+      const wrap = document.createElement('div');
+      wrap.innerHTML = brandCardHTML(group, id);
+      container.appendChild(wrap.firstElementChild);
+
+      const controls = document.createElement('div');
+      controls.className = 'brand-controls';
+      const btn = document.createElement('button');
+      btn.textContent = `Download ${group.brand} (JPG)`;
+      btn.addEventListener('click', () => downloadElementAsJPG(id, `realitybm-${slug(group.brand)}-prices`, btn));
+      controls.appendChild(btn);
+      container.appendChild(controls);
+    });
+
+    const captureAll = document.getElementById('captureAll');
+    captureAll.innerHTML = `
+      <div style="background:#F4F2EC; font-family:'IBM Plex Sans', sans-serif;">
+        <div style="padding:16px 22px 4px;">
+          <div style="font-family:'Big Shoulders Display', sans-serif; font-weight:800; font-size:24px; color:#233B4E;">REALITY <span style="color:#A8431E;">BUILDING MATERIALS</span></div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#5B584F; margin-top:4px;">Cement Board — Price List · Updated ${state.date}</div>
+        </div>
+        ${state.data.map(group => `
+          <div style="border-top:2px solid #201F1C; margin-top:10px; padding-top:8px;">
+            <h2 style="font-family:'Big Shoulders Display', sans-serif; font-size:17px; color:#233B4E; margin:6px 22px;">${group.brand}</h2>
+            <table style="width:100%; border-collapse:collapse;">
+              <tbody>${group.items.map(item => {
+                const priceInner = (item.price === null || item.price === undefined)
+                  ? `<span style="font-style:italic; color:#5B584F; font-size:13px;">On request</span>`
+                  : `<span style="font-family:'IBM Plex Mono', monospace; font-weight:600;"><span style="font-size:11px; color:#5B584F; margin-right:3px;">AED</span>${Number(item.price).toFixed(2)}</span>`;
+                return `<tr>
+                  <td style="padding:8px 22px; font-family:'IBM Plex Mono', monospace; color:#5B584F; font-size:13.5px; border-bottom:1px solid #D3CEC2;">${item.size}</td>
+                  <td style="padding:8px 22px; text-align:right; border-bottom:1px solid #D3CEC2;">${priceInner}</td>
+                </tr>`;
+              }).join('')}</tbody>
+            </table>
+          </div>
+        `).join('')}
+        <div style="padding:16px 22px 20px; font-size:11.5px; color:#5B584F; line-height:1.6; border-top:1px solid #D3CEC2; margin-top:6px;">
+          <b style="color:#201F1C;">Reality Building Materials Trading LLC</b><br>${CONTACT_HTML}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderEditForm(){
+    document.getElementById('dateInput').value = state.date;
+    const container = document.getElementById('editFields');
+    container.innerHTML = '';
+    state.data.forEach((group, gi) => {
+      const heading = document.createElement('div');
+      heading.className = 'edit-brand';
+      heading.textContent = group.brand;
+      container.appendChild(heading);
+
+      group.items.forEach((item, ii) => {
+        const row = document.createElement('div');
+        row.className = 'edit-row';
+        const val = (item.price === null || item.price === undefined) ? '' : item.price;
+        row.innerHTML = `
+          <div class="size-label">${item.size}</div>
+          <input type="text" inputmode="decimal" class="price-input"
+                 data-group="${gi}" data-item="${ii}"
+                 placeholder="On request" value="${val}">
+        `;
+        container.appendChild(row);
+      });
+    });
+
+    const notice = document.getElementById('editNotice');
+    if (hasArtifactCapability){
+      notice.textContent = 'Saving here updates the price list for everyone who has this link.';
+      notice.classList.add('show');
+    } else {
+      notice.classList.remove('show');
+    }
+  }
+
+  function switchTab(tabId){
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+    document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === tabId));
+    if(tabId === 'editView') renderEditForm();
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  document.getElementById('saveBtn').addEventListener('click', async () => {
+    const saveBtn = document.getElementById('saveBtn');
+    const inputs = document.querySelectorAll('.price-input');
+    const newData = state.data.map(g => ({ brand: g.brand, items: g.items.map(i => ({...i})) }));
+    inputs.forEach(inp => {
+      const gi = Number(inp.dataset.group);
+      const ii = Number(inp.dataset.item);
+      const raw = inp.value.trim();
+      newData[gi].items[ii].price = raw === '' ? null : Number(raw);
+    });
+    const newDate = document.getElementById('dateInput').value.trim() || DEFAULT_LAST_UPDATED;
+
+    state.data = newData;
+    state.date = newDate;
+
+    if (hasArtifactCapability && artifactApi){
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Publishing...';
+      try{
+        writeEmbedded(state);
+        const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        await artifactApi.publish(fullHtml);
+        // The platform reloads every open view (including this one) to
+        // the new version once publish resolves.
+      }catch(err){
+        const code = err && err.code;
+        if (code === 'not_granted' || code === 'not_writer'){
+          alert("This device doesn't have edit access to this shared page, so the change wasn't saved for other viewers.");
+        } else if (code === 'conflict'){
+          alert('Someone else updated the price list at the same moment — this view will refresh to their version.');
+        } else {
+          alert('Could not publish the update. Please try again.');
+        }
+      }finally{
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save & update price list';
+      }
+    } else {
+      saveLocalFallback();
+      renderPriceList();
+      const status = document.getElementById('saveStatus');
+      status.classList.add('show');
+      setTimeout(() => status.classList.remove('show'), 1800);
+      switchTab('priceView');
+    }
+  });
+
+  async function downloadElementAsJPG(elementId, filenameBase, btn){
+    const originalLabel = btn ? btn.textContent : null;
+    if(btn){ btn.disabled = true; btn.textContent = 'Preparing...'; }
+    try {
+      const target = document.getElementById(elementId);
+      const canvas = await html2canvas(target, { backgroundColor: '#F4F2EC', scale: 2 });
+      const link = document.createElement('a');
+      const dateSlug = state.date.replace(/\s+/g, '-');
+      link.download = `${filenameBase}-${dateSlug}.jpg`;
+      link.href = canvas.toDataURL('image/jpeg', 0.95);
+      link.click();
+    } catch (e) {
+      alert('Could not generate the image. Please try again.');
+      console.error(e);
+    } finally {
+      if(btn){ btn.disabled = false; btn.textContent = originalLabel; }
+    }
+  }
+
+  document.getElementById('downloadAllBtn').addEventListener('click', (e) => {
+    downloadElementAsJPG('captureAll', 'realitybm-all-brands-prices', e.currentTarget);
+  });
+
+  (async function init(){
+    if (!hasArtifactCapability && !(window.claude)) {
+      // No shared-publish runtime here at all (e.g. plain local file) —
+      // use this browser's own saved edits if any exist.
+      loadLocalFallback();
+    }
+    renderPriceList();
+
+    if (window.claude && typeof window.claude.use === 'function'){
+      try{
+        artifactApi = await window.claude.use('artifact');
+        hasArtifactCapability = !!artifactApi;
+      }catch(e){
+        hasArtifactCapability = false;
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>
