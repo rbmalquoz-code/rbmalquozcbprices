@@ -3,345 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reality Building Materials — Cement Board Price List</title>
+<title>Reality Building Materials — Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root{
-    --bg:#E4E1D8;
-    --card:#F4F2EC;
-    --ink:#201F1C;
-    --ink-soft:#5B584F;
-    --steel:#35526B;
-    --steel-dark:#233B4E;
-    --rust:#A8431E;
-    --line:#B9B3A5;
-    --line-soft:#D3CEC2;
+    --bg:#E4E1D8; --card:#F4F2EC; --ink:#201F1C; --ink-soft:#5B584F;
+    --steel:#35526B; --steel-dark:#233B4E; --rust:#A8431E;
+    --line:#B9B3A5; --line-soft:#D3CEC2;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
     background:var(--bg);
-    background-image:
-      repeating-linear-gradient(0deg, rgba(0,0,0,0.025) 0px, rgba(0,0,0,0.025) 1px, transparent 1px, transparent 3px);
+    background-image:repeating-linear-gradient(0deg, rgba(0,0,0,0.025) 0px, rgba(0,0,0,0.025) 1px, transparent 1px, transparent 3px);
     color:var(--ink);
     font-family:'IBM Plex Sans', -apple-system, sans-serif;
     min-height:100vh;
     padding:32px 16px 60px;
   }
-  .wrap{
-    max-width:760px;
-    margin:0 auto;
-  }
+  .wrap{ max-width:780px; margin:0 auto; }
 
+  /* ---- Top band ---- */
   .band{
-    background:var(--steel-dark);
-    color:#EDEAE1;
-    padding:22px 26px;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    gap:16px;
-    flex-wrap:wrap;
+    background:var(--steel-dark); color:#EDEAE1; padding:22px 26px;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:16px; flex-wrap:wrap;
   }
-  .band .mark{
-    font-family:'Big Shoulders Display', sans-serif;
-    font-weight:800;
-    font-size:28px;
-    letter-spacing:0.5px;
-    line-height:1;
+  .band .mark{ font-family:'Big Shoulders Display', sans-serif; font-weight:800; font-size:26px; letter-spacing:0.4px; line-height:1; }
+  .band .mark span{ color:#D8A98A; }
+  .band .sub{ font-size:12px; color:#C7CCD2; margin-top:6px; }
+  .band .backlink{
+    background:transparent; border:1px solid #6E8296; color:#EDEAE1;
+    font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:12px;
+    padding:8px 14px; cursor:pointer; display:none;
   }
-  .band .mark span{color:#D8A98A;}
-  .band .sub{
-    font-size:12.5px;
-    color:#C7CCD2;
-    margin-top:6px;
-    max-width:340px;
-    line-height:1.5;
+  .band .backlink.show{ display:inline-block; }
+  .band .backlink:hover{ background:rgba(255,255,255,0.08); }
+
+  .screen{ display:none; }
+  .screen.active{ display:block; }
+
+  /* ---- Home: module grid ---- */
+  #screen-home .intro{ padding:18px 2px 4px; font-size:12.5px; color:var(--ink-soft); }
+  .module-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px; }
+  @media (max-width:520px){ .module-grid{ grid-template-columns:1fr; } }
+  .module-card{
+    background:var(--card); border:1px solid var(--line);
+    padding:20px; text-align:left; cursor:pointer;
+    font-family:inherit; color:inherit;
+    transition:border-color 0.15s ease, transform 0.1s ease;
   }
-  .band .updated{
-    text-align:right;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:#C7CCD2;
+  .module-card:hover{ border-color:var(--steel-dark); }
+  .module-card .icon{ font-size:26px; margin-bottom:10px; display:block; }
+  .module-card h3{
+    font-family:'Big Shoulders Display', sans-serif; font-weight:700; font-size:18px;
+    margin:0 0 6px; color:var(--steel-dark);
   }
-  .band .updated b{
-    display:block;
-    color:#EDEAE1;
-    font-size:15px;
-    font-weight:600;
-    margin-top:3px;
+  .module-card p{ font-size:12px; color:var(--ink-soft); margin:0 0 10px; line-height:1.5; }
+  .module-card .tag{
+    display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:0.4px;
+    padding:3px 8px;
+  }
+  .module-card .tag.customer{ color:#233B4E; background:#DCE3E9; }
+  .module-card .tag.internal{ color:#8C3717; background:#F3E4DE; }
+  .module-placeholder{
+    border:1px dashed var(--line); padding:20px; text-align:center;
+    font-size:12px; color:var(--ink-soft);
   }
 
+  /* ---- Shared module chrome ---- */
+  .module-head{ padding:16px 2px 4px; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; }
+  .module-head h1{ font-family:'Big Shoulders Display', sans-serif; font-weight:700; font-size:21px; margin:0; }
+  .module-head .unit{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft); }
+
+  /* ---- Cement board module ---- */
   .sync-bar{
-    background:#F4F2EC;
-    border:1px solid var(--line);
-    border-top:none;
-    padding:9px 26px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:8px;
-    font-size:11.5px;
-    color:var(--ink-soft);
+    background:var(--card); border:1px solid var(--line); padding:9px 22px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+    font-size:11.5px; color:var(--ink-soft); margin-top:10px;
   }
   .sync-bar.error{ background:#F3E4DE; color:#7A3218; }
   .sync-bar button{
-    background:transparent;
-    border:1px solid var(--ink-soft);
-    color:var(--ink-soft);
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:11px;
-    font-weight:600;
-    padding:4px 10px;
-    cursor:pointer;
+    background:transparent; border:1px solid var(--ink-soft); color:var(--ink-soft);
+    font-family:'IBM Plex Sans', sans-serif; font-size:11px; font-weight:600;
+    padding:4px 10px; cursor:pointer;
   }
   .sync-bar.error button{ border-color:#7A3218; color:#7A3218; }
-  .sync-bar button:hover{ opacity:0.75; }
 
-  .list-intro{
-    padding:16px 2px 4px;
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-  .list-intro h1{
-    font-family:'Big Shoulders Display', sans-serif;
-    font-weight:700;
-    font-size:21px;
-    margin:0;
-  }
-  .list-intro .unit{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px;
-    color:var(--ink-soft);
-  }
+  .brand-card{ background:var(--card); border:1px solid var(--line); margin-top:14px; }
+  .card-head{ padding:16px 22px 12px; border-bottom:2px solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; }
+  .card-head .co-tag{ font-size:10.5px; letter-spacing:0.3px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; }
+  .card-head h2{ font-family:'Big Shoulders Display', sans-serif; font-weight:700; font-size:19px; margin:2px 0 0; color:var(--steel-dark); }
+  .card-head .card-date{ text-align:right; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); }
 
-  .brand-card{
-    background:var(--card);
-    border:1px solid var(--line);
-    margin-top:14px;
-  }
-  .card-head{
-    padding:16px 22px 12px;
-    border-bottom:2px solid var(--ink);
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-  }
-  .card-head .co-tag{
-    font-size:10.5px;
-    letter-spacing:0.3px;
-    color:var(--ink-soft);
-    font-family:'IBM Plex Mono', monospace;
-  }
-  .card-head h2{
-    font-family:'Big Shoulders Display', sans-serif;
-    font-weight:700;
-    font-size:19px;
-    margin:2px 0 0;
-    color:var(--steel-dark);
-  }
-  .card-head .card-date{
-    text-align:right;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    color:var(--ink-soft);
-  }
-
-  table{
-    width:100%;
-    border-collapse:collapse;
-  }
-  thead th{
-    text-align:left;
-    font-size:11px;
-    font-weight:600;
-    color:var(--ink-soft);
-    padding:9px 22px;
-    border-bottom:1px solid var(--line);
-  }
+  table{ width:100%; border-collapse:collapse; }
+  thead th{ text-align:left; font-size:11px; font-weight:600; color:var(--ink-soft); padding:9px 22px; border-bottom:1px solid var(--line); }
   thead th.num{ text-align:right; }
+  tbody tr.item-row td{ padding:10px 22px; border-bottom:1px solid var(--line-soft); font-size:14.5px; }
+  tbody tr.item-row:last-of-type td{ border-bottom:none; }
+  td.size{ font-family:'IBM Plex Mono', monospace; font-size:13.5px; color:var(--ink-soft); }
+  td.price{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:15.5px; text-align:right; }
+  td.price .cur{ font-size:11px; color:var(--ink-soft); font-weight:500; margin-right:3px; }
+  td.price.na{ color:var(--ink-soft); font-weight:500; font-size:13px; font-style:italic; text-align:right; }
 
-  tbody tr.item-row td{
-    padding:10px 22px;
-    border-bottom:1px solid var(--line-soft);
-    font-size:14.5px;
-  }
-  tbody tr.item-row:last-of-type td{
-    border-bottom:none;
-  }
-  td.size{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13.5px;
-    color:var(--ink-soft);
-  }
-  td.price{
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:600;
-    font-size:15.5px;
-    text-align:right;
-  }
-  td.price .cur{
-    font-size:11px;
-    color:var(--ink-soft);
-    font-weight:500;
-    margin-right:3px;
-  }
-  td.price.na{
-    color:var(--ink-soft);
-    font-weight:500;
-    font-size:13px;
-    font-style:italic;
-    text-align:right;
-  }
-
-  .card-foot{
-    padding:12px 22px 16px;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    flex-wrap:wrap;
-    gap:8px;
-    border-top:1px solid var(--line-soft);
-  }
-  .card-foot .co{
-    font-size:11.5px;
-    line-height:1.55;
-    color:var(--ink-soft);
-  }
+  .card-foot{ padding:12px 22px 16px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:8px; border-top:1px solid var(--line-soft); }
+  .card-foot .co{ font-size:11.5px; line-height:1.55; color:var(--ink-soft); }
   .card-foot .co b{ color:var(--ink); }
-  .card-foot .price-note{
-    font-size:10.5px;
-    color:var(--ink-soft);
-    max-width:190px;
-    text-align:right;
-    line-height:1.4;
-  }
+  .card-foot .price-note{ font-size:10.5px; color:var(--ink-soft); max-width:190px; text-align:right; line-height:1.4; }
 
-  .brand-controls{
-    display:flex;
-    justify-content:flex-end;
-    padding:8px 2px 0;
-  }
+  .brand-controls{ display:flex; justify-content:flex-end; padding:8px 2px 0; }
   .brand-controls button{
-    background:transparent;
-    color:var(--steel-dark);
-    border:1px solid var(--steel-dark);
-    font-family:'IBM Plex Sans', sans-serif;
-    font-weight:600;
-    font-size:12px;
-    padding:7px 14px;
-    cursor:pointer;
-    letter-spacing:0.2px;
-    transition:background 0.15s ease, color 0.15s ease;
+    background:transparent; color:var(--steel-dark); border:1px solid var(--steel-dark);
+    font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:12px; padding:7px 14px;
+    cursor:pointer; letter-spacing:0.2px; transition:background 0.15s ease, color 0.15s ease;
   }
   .brand-controls button:hover{ background:var(--steel-dark); color:#EDEAE1; }
   .brand-controls button:disabled{ opacity:0.5; cursor:progress; }
 
-  .all-controls{
-    display:flex;
-    justify-content:flex-end;
-    padding:20px 2px 0;
+  .all-controls{ display:flex; justify-content:flex-end; padding:20px 2px 0; }
+  button.primary-btn{
+    background:var(--rust); color:#F4F2EC; border:none;
+    font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:13.5px;
+    padding:11px 20px; cursor:pointer; letter-spacing:0.2px; transition:background 0.15s ease;
   }
-  button#downloadAllBtn{
-    background:var(--rust);
-    color:#F4F2EC;
-    border:none;
-    font-family:'IBM Plex Sans', sans-serif;
-    font-weight:600;
-    font-size:13.5px;
-    padding:11px 20px;
-    cursor:pointer;
-    letter-spacing:0.2px;
-    transition:background 0.15s ease;
+  button.primary-btn:hover{ background:#8C3717; }
+  button.primary-btn:disabled{ background:#B9AFA5; cursor:progress; }
+
+  /* ---- White wood module ---- */
+  .ww-card{ background:var(--card); border:1px solid var(--line); margin-top:14px; padding:24px 26px 28px; }
+  .tag-strip{ display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.4px; color:#8C3717; background:#F3E4DE; padding:3px 8px; margin-bottom:16px; }
+  .ww-field{ margin-bottom:18px; }
+  .ww-field label{ display:block; font-size:11px; font-weight:600; color:var(--ink-soft); margin-bottom:6px; }
+  .ww-card select, .ww-card input[type=number]{
+    width:100%; font-family:'IBM Plex Mono', monospace; font-size:15px; padding:10px 12px;
+    border:1px solid var(--line); background:#fff; color:var(--ink);
   }
-  button#downloadAllBtn:hover{ background:#8C3717; }
-  button#downloadAllBtn:disabled{ background:#B9AFA5; cursor:progress; }
+  .ww-row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .ww-hint{ font-size:11px; color:var(--ink-soft); margin-top:5px; margin-bottom:6px; }
+  .ww-result{ margin-top:8px; padding:20px 22px; background:var(--steel-dark); color:#EDEAE1; text-align:center; }
+  .ww-result .label{ font-size:11px; letter-spacing:0.4px; color:#B9C2CB; margin-bottom:6px; }
+  .ww-result .value{ font-family:'IBM Plex Mono', monospace; font-size:34px; font-weight:600; }
+  .ww-result .value .cur{ font-size:15px; color:#B9C2CB; margin-right:6px; }
+  .ww-result .subline{ font-size:11px; color:#9FA9B3; margin-top:6px; font-family:'IBM Plex Mono', monospace; }
+  .ww-footnote{ margin-top:18px; font-size:11px; color:var(--ink-soft); line-height:1.5; }
 
   @media (max-width:480px){
-    .card-head, thead th, tbody tr.item-row td, .card-foot, .sync-bar{
-      padding-left:16px;
-      padding-right:16px;
-    }
+    .card-head, thead th, tbody tr.item-row td, .card-foot, .sync-bar{ padding-left:16px; padding-right:16px; }
     .band{ padding:18px 16px; }
   }
 
-  /* ---- PIN lock screen ---- */
-  #lockScreen{
-    position:fixed;
-    inset:0;
-    background:var(--steel-dark);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:9999;
-  }
+  /* ---- PIN lock ---- */
+  #lockScreen{ position:fixed; inset:0; background:var(--steel-dark); display:flex; align-items:center; justify-content:center; padding:20px; z-index:9999; }
   #lockScreen.hidden{ display:none; }
-  .lock-box{
-    background:var(--card);
-    border:1px solid var(--line);
-    padding:34px 30px;
-    max-width:320px;
-    width:100%;
-    text-align:center;
-  }
-  .lock-box .mark{
-    font-family:'Big Shoulders Display', sans-serif;
-    font-weight:800;
-    font-size:20px;
-    color:var(--steel-dark);
-    letter-spacing:0.3px;
-    margin-bottom:4px;
-  }
+  .lock-box{ background:var(--card); border:1px solid var(--line); padding:34px 30px; max-width:320px; width:100%; text-align:center; }
+  .lock-box .mark{ font-family:'Big Shoulders Display', sans-serif; font-weight:800; font-size:20px; color:var(--steel-dark); letter-spacing:0.3px; margin-bottom:4px; }
   .lock-box .mark span{ color:var(--rust); }
-  .lock-box p{
-    font-size:12.5px;
-    color:var(--ink-soft);
-    margin:0 0 20px;
-  }
-  #pinInput{
-    width:100%;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:22px;
-    letter-spacing:10px;
-    text-align:center;
-    padding:12px 10px;
-    border:1px solid var(--line);
-    background:#fff;
-    color:var(--ink);
-    box-sizing:border-box;
-  }
-  #pinError{
-    font-size:12px;
-    color:var(--rust);
-    margin-top:10px;
-    min-height:16px;
-  }
-  #pinSubmit{
-    width:100%;
-    margin-top:16px;
-    background:var(--steel);
-    color:#F4F2EC;
-    border:none;
-    font-family:'IBM Plex Sans', sans-serif;
-    font-weight:600;
-    font-size:13.5px;
-    padding:11px 20px;
-    cursor:pointer;
-    letter-spacing:0.2px;
-  }
+  .lock-box p{ font-size:12.5px; color:var(--ink-soft); margin:0 0 20px; }
+  #pinInput{ width:100%; font-family:'IBM Plex Mono', monospace; font-size:22px; letter-spacing:10px; text-align:center; padding:12px 10px; border:1px solid var(--line); background:#fff; color:var(--ink); box-sizing:border-box; }
+  #pinError{ font-size:12px; color:var(--rust); margin-top:10px; min-height:16px; }
+  #pinSubmit{ width:100%; margin-top:16px; background:var(--steel); color:#F4F2EC; border:none; font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:13.5px; padding:11px 20px; cursor:pointer; letter-spacing:0.2px; }
   #pinSubmit:hover{ background:var(--steel-dark); }
-
-  body.locked > .wrap,
-  body.locked #captureAll{
-    display:none;
-  }
+  body.locked > .wrap, body.locked #captureAll{ display:none; }
 </style>
 </head>
 <body class="locked">
@@ -349,7 +173,7 @@
 <div id="lockScreen">
   <div class="lock-box">
     <div class="mark">REALITY <span>BUILDING MATERIALS</span></div>
-    <p>Enter the 6-digit PIN to view prices.</p>
+    <p>Enter the 6-digit PIN to continue.</p>
     <input type="password" id="pinInput" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="off">
     <div id="pinError"></div>
     <button id="pinSubmit">Unlock</button>
@@ -361,25 +185,69 @@
   <div class="band">
     <div>
       <div class="mark">REALITY <span>BUILDING MATERIALS</span></div>
-      <div class="sub">Trading LLC — Al Quoz Dubai · Sajaa Sharjah · Fujairah</div>
+      <div class="sub" id="bandSub">Trading LLC — Al Quoz Dubai · Sajaa Sharjah · Fujairah</div>
     </div>
-    <div class="updated">PRICES UPDATED<b id="updatedDate">—</b></div>
+    <button class="backlink" id="backBtn">← Dashboard</button>
   </div>
 
-  <div class="sync-bar" id="syncBar">
-    <span id="syncStatus">Loading latest prices…</span>
-    <button id="refreshBtn">Refresh</button>
+  <!-- ============ HOME / MODULE SELECTOR ============
+       To add a new module later: add a HTML block below
+       (copy the pattern of #screen-cement-board or
+       #screen-white-wood), then add one entry to the
+       MODULES array in the script below. That's it — it
+       will automatically show up as a tile here.
+  =================================================== -->
+  <div class="screen active" id="screen-home">
+    <div class="intro">Select what you want to open.</div>
+    <div class="module-grid" id="moduleGrid"></div>
   </div>
 
-  <div class="list-intro">
-    <h1>Cement Board — Price List</h1>
-    <div class="unit">AED per sheet, ex-showroom</div>
+  <!-- ============ CEMENT BOARD PRICES ============ -->
+  <div class="screen" id="screen-cement-board">
+    <div class="module-head">
+      <h1>Cement Board — Price List</h1>
+      <div class="unit">AED per sheet, ex-showroom</div>
+    </div>
+    <div class="sync-bar" id="syncBar">
+      <span id="syncStatus">Loading latest prices…</span>
+      <button id="refreshBtn">Refresh</button>
+    </div>
+    <div id="brandCards"></div>
+    <div class="all-controls">
+      <button class="primary-btn" id="downloadAllBtn">Download full price list (JPG)</button>
+    </div>
   </div>
 
-  <div id="brandCards"></div>
-
-  <div class="all-controls">
-    <button id="downloadAllBtn">Download full price list (JPG)</button>
+  <!-- ============ WHITE WOOD CALCULATOR ============ -->
+  <div class="screen" id="screen-white-wood">
+    <div class="module-head">
+      <h1>White Wood — Cost Calculator</h1>
+      <div class="unit">Cost per piece from CBM rate</div>
+    </div>
+    <div class="ww-card">
+      <div class="tag-strip">INTERNAL — COST, NOT A CUSTOMER PRICE</div>
+      <div class="ww-field">
+        <label for="wwSize">Size</label>
+        <select id="wwSize"></select>
+      </div>
+      <div class="ww-row2">
+        <div class="ww-field">
+          <label for="wwPcs">Pieces per CBM</label>
+          <input type="number" id="wwPcs" step="0.01">
+        </div>
+        <div class="ww-field">
+          <label for="wwCbm">CBM Price</label>
+          <input type="number" id="wwCbm" step="0.01">
+        </div>
+      </div>
+      <div class="ww-hint">Pieces-per-CBM and CBM price are pre-filled from your reference table — edit either if the supplier rate changes.</div>
+      <div class="ww-result">
+        <div class="label">COST PER PIECE</div>
+        <div class="value"><span class="cur">AED</span><span id="wwResult">—</span></div>
+        <div class="subline" id="wwFormula">—</div>
+      </div>
+      <div class="ww-footnote">Cost per piece = CBM Price ÷ Pieces per CBM. This is your supplier cost — apply your own markup before quoting a customer.</div>
+    </div>
   </div>
 
 </div>
@@ -387,34 +255,99 @@
 <div id="captureAll" style="position:absolute; left:-9999px; top:0; width:760px;"></div>
 
 <script>
-  // ---------------------------------------------------------------
-  // Prices are pulled live from a published Google Sheet tab (CSV),
-  // with columns: Brand, Size, Price. Blank price -> "On request".
-  // Update prices by editing that sheet — this page just displays
-  // whatever it last fetched from there.
-  // ---------------------------------------------------------------
+  const CONTACT_HTML = `showroom@realitybm.com<br>+971 56 500 3029 · +971 56 680 3874`;
+  const SITE_PIN = "786110";
+  const PIN_SESSION_KEY = 'realitybm_pin_ok_v1';
+
+  // ===========================================================
+  // MODULE REGISTRY — add one entry here per new tool. `id` must
+  // match the "screen-<id>" div id. `init` runs once, the first
+  // time that module is opened.
+  // ===========================================================
+  const MODULES = [
+    {
+      id: 'cement-board',
+      icon: '🧱',
+      title: 'Cement Board Prices',
+      desc: 'Live customer price list by brand and size, with JPG export.',
+      tagClass: 'customer',
+      tagLabel: 'CUSTOMER PRICE LIST',
+      init: initCementBoard,
+    },
+    {
+      id: 'white-wood',
+      icon: '🪵',
+      title: 'White Wood Calculator',
+      desc: 'Cost per piece from CBM rate — internal use only.',
+      tagClass: 'internal',
+      tagLabel: 'INTERNAL — COST TOOL',
+      init: initWhiteWood,
+    },
+    // Next tool goes here, e.g.:
+    // { id: 'gypsum-ceiling', icon: '🏗️', title: 'Gypsum Ceiling',
+    //   desc: '...', tagClass: 'customer', tagLabel: 'CUSTOMER PRICE LIST',
+    //   init: initGypsumCeiling },
+  ];
+
+  const initedModules = new Set();
+
+  function renderModuleGrid(){
+    const grid = document.getElementById('moduleGrid');
+    grid.innerHTML = '';
+    MODULES.forEach(m => {
+      const card = document.createElement('button');
+      card.className = 'module-card';
+      card.innerHTML = `
+        <span class="icon">${m.icon}</span>
+        <h3>${m.title}</h3>
+        <p>${m.desc}</p>
+        <span class="tag ${m.tagClass}">${m.tagLabel}</span>
+      `;
+      card.addEventListener('click', () => openModule(m.id));
+      grid.appendChild(card);
+    });
+  }
+
+  function openModule(id){
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + id).classList.add('active');
+    document.getElementById('backBtn').classList.add('show');
+    document.getElementById('bandSub').textContent = MODULES.find(m => m.id === id)?.title || '';
+
+    if(!initedModules.has(id)){
+      const mod = MODULES.find(m => m.id === id);
+      if(mod && mod.init) mod.init();
+      initedModules.add(id);
+    }
+  }
+
+  function goHome(){
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-home').classList.add('active');
+    document.getElementById('backBtn').classList.remove('show');
+    document.getElementById('bandSub').textContent = 'Trading LLC — Al Quoz Dubai · Sajaa Sharjah · Fujairah';
+  }
+
+  document.getElementById('backBtn').addEventListener('click', goHome);
+
+  // ===========================================================
+  // CEMENT BOARD MODULE
+  // ===========================================================
   const SHEET_DOC_KEY = "2PACX-1vRga_4VlPWTqDrLG4ooGHgok1kgVHn2iN-zUXPEsgnjsmUY9INu_m0tywddVORvZJteM7ZmryuT8Q8d";
   const SHEET_GID = "118355134";
   const CSV_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_DOC_KEY}/pub?gid=${SHEET_GID}&single=true&output=csv`;
-
-  const SITE_PIN = "786110";
-  const PIN_SESSION_KEY = 'realitybm_pin_ok_v1';
   const CACHE_KEY = 'realitybm_price_cache_v1';
-  const CONTACT_HTML = `showroom@realitybm.com<br>+971 56 500 3029 · +971 56 680 3874`;
 
-  let state = { date: "—", data: [] };
+  let cbState = { date: "—", data: [] };
 
-  // ---- CSV parsing ----
   function parseCSV(text){
     const rows = [];
     let row = [], field = '', inQuotes = false;
     for(let i = 0; i < text.length; i++){
       const c = text[i];
       if(inQuotes){
-        if(c === '"'){
-          if(text[i+1] === '"'){ field += '"'; i++; }
-          else inQuotes = false;
-        } else field += c;
+        if(c === '"'){ if(text[i+1] === '"'){ field += '"'; i++; } else inQuotes = false; }
+        else field += c;
       } else {
         if(c === '"') inQuotes = true;
         else if(c === ','){ row.push(field); field = ''; }
@@ -429,11 +362,6 @@
     return rows;
   }
 
-  // Finds the header row by looking for cells containing "brand" /
-  // "size" / "price" anywhere in the sheet, then reads data from
-  // whichever columns those headers sit in — so it doesn't matter
-  // if there are blank leading rows/columns (as in this sheet, where
-  // headers are on row 4 and column A is empty).
   function findColumns(rows){
     for(let i = 0; i < rows.length; i++){
       const row = rows[i];
@@ -444,9 +372,7 @@
         else if(c.includes('size')) sizeCol = idx;
         else if(c.includes('price')) priceCol = idx;
       });
-      if(brandCol !== -1 && sizeCol !== -1 && priceCol !== -1){
-        return { headerRow: i, brandCol, sizeCol, priceCol };
-      }
+      if(brandCol !== -1 && sizeCol !== -1 && priceCol !== -1) return { headerRow: i, brandCol, sizeCol, priceCol };
     }
     return null;
   }
@@ -455,12 +381,8 @@
     const nonEmptyRows = rows.filter(r => r.some(c => (c || '').trim() !== ''));
     const cols = findColumns(nonEmptyRows);
     if(!cols) return [];
-
     const dataRows = nonEmptyRows.slice(cols.headerRow + 1);
-    const groups = [];
-    const byBrand = {};
-    let lastBrand = '';
-
+    const groups = []; const byBrand = {}; let lastBrand = '';
     dataRows.forEach(r => {
       const brandRaw = (r[cols.brandCol] || '').trim();
       const size = (r[cols.sizeCol] || '').trim();
@@ -469,40 +391,22 @@
       const brand = brandRaw || lastBrand;
       lastBrand = brand;
       if(!brand) return;
-
-      if(!byBrand[brand]){
-        byBrand[brand] = { brand, items: [] };
-        groups.push(byBrand[brand]);
-      }
+      if(!byBrand[brand]){ byBrand[brand] = { brand, items: [] }; groups.push(byBrand[brand]); }
       const num = parseFloat(priceRaw.replace(/[^0-9.\-]/g, ''));
-      byBrand[brand].items.push({
-        size,
-        price: (priceRaw === '' || isNaN(num)) ? null : num
-      });
+      byBrand[brand].items.push({ size, price: (priceRaw === '' || isNaN(num)) ? null : num });
     });
-
     return groups;
   }
 
-  function todayLabel(){
-    return new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-  }
+  function todayLabel(){ return new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); }
 
   function setSyncStatus(msg, isError){
     const bar = document.getElementById('syncBar');
     document.getElementById('syncStatus').textContent = msg;
     bar.classList.toggle('error', !!isError);
   }
-
-  function saveCache(data){
-    try{ localStorage.setItem(CACHE_KEY, JSON.stringify({ date: todayLabel(), data })); }catch(e){}
-  }
-  function loadCache(){
-    try{
-      const raw = localStorage.getItem(CACHE_KEY);
-      return raw ? JSON.parse(raw) : null;
-    }catch(e){ return null; }
-  }
+  function saveCache(data){ try{ localStorage.setItem(CACHE_KEY, JSON.stringify({ date: todayLabel(), data })); }catch(e){} }
+  function loadCache(){ try{ const raw = localStorage.getItem(CACHE_KEY); return raw ? JSON.parse(raw) : null; }catch(e){ return null; } }
 
   async function fetchPrices(){
     setSyncStatus('Loading latest prices…', false);
@@ -512,15 +416,15 @@
       const text = await res.text();
       const groups = rowsToState(parseCSV(text));
       if(!groups.length) throw new Error('No rows found');
-      state = { date: todayLabel(), data: groups };
+      cbState = { date: todayLabel(), data: groups };
       saveCache(groups);
-      setSyncStatus('Synced from Google Sheet · ' + state.date, false);
+      setSyncStatus('Synced from Google Sheet · ' + cbState.date, false);
       renderPriceList();
     }catch(err){
       console.error('Price sheet fetch failed:', err);
       const cached = loadCache();
       if(cached && cached.data && cached.data.length){
-        state = cached;
+        cbState = cached;
         setSyncStatus('Could not reach the price sheet — showing last saved prices (' + cached.date + ')', true);
       } else {
         setSyncStatus('Could not load prices. Check your connection and hit Refresh.', true);
@@ -548,7 +452,7 @@
             <div class="co-tag">REALITY BUILDING MATERIALS TRADING LLC</div>
             <h2>${group.brand} — Cement Board</h2>
           </div>
-          <div class="card-date">AED / sheet<br>${state.date}</div>
+          <div class="card-date">AED / sheet<br>${cbState.date}</div>
         </div>
         <table>
           <thead><tr><th>Size</th><th class="num">Price</th></tr></thead>
@@ -563,15 +467,13 @@
   }
 
   function renderPriceList(){
-    document.getElementById('updatedDate').textContent = state.date;
-
     const container = document.getElementById('brandCards');
     container.innerHTML = '';
-    state.data.forEach(group => {
+    cbState.data.forEach(group => {
       const id = 'capture-' + slug(group.brand);
-      const wrap = document.createElement('div');
-      wrap.innerHTML = brandCardHTML(group, id);
-      container.appendChild(wrap.firstElementChild);
+      const w = document.createElement('div');
+      w.innerHTML = brandCardHTML(group, id);
+      container.appendChild(w.firstElementChild);
 
       const controls = document.createElement('div');
       controls.className = 'brand-controls';
@@ -587,9 +489,9 @@
       <div style="background:#F4F2EC; font-family:'IBM Plex Sans', sans-serif;">
         <div style="padding:16px 22px 4px;">
           <div style="font-family:'Big Shoulders Display', sans-serif; font-weight:800; font-size:24px; color:#233B4E;">REALITY <span style="color:#A8431E;">BUILDING MATERIALS</span></div>
-          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#5B584F; margin-top:4px;">Cement Board — Price List · Updated ${state.date}</div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:#5B584F; margin-top:4px;">Cement Board — Price List · Updated ${cbState.date}</div>
         </div>
-        ${state.data.map(group => `
+        ${cbState.data.map(group => `
           <div style="border-top:2px solid #201F1C; margin-top:10px; padding-top:8px;">
             <h2 style="font-family:'Big Shoulders Display', sans-serif; font-size:17px; color:#233B4E; margin:6px 22px;">${group.brand}</h2>
             <table style="width:100%; border-collapse:collapse;">
@@ -619,7 +521,7 @@
       const target = document.getElementById(elementId);
       const canvas = await html2canvas(target, { backgroundColor: '#F4F2EC', scale: 2 });
       const link = document.createElement('a');
-      const dateSlug = state.date.replace(/\s+/g, '-');
+      const dateSlug = cbState.date.replace(/\s+/g, '-');
       link.download = `${filenameBase}-${dateSlug}.jpg`;
       link.href = canvas.toDataURL('image/jpeg', 0.95);
       link.click();
@@ -631,12 +533,65 @@
     }
   }
 
-  document.getElementById('downloadAllBtn').addEventListener('click', (e) => {
-    downloadElementAsJPG('captureAll', 'realitybm-all-brands-prices', e.currentTarget);
-  });
-  document.getElementById('refreshBtn').addEventListener('click', fetchPrices);
+  function initCementBoard(){
+    document.getElementById('downloadAllBtn').addEventListener('click', (e) => {
+      downloadElementAsJPG('captureAll', 'realitybm-all-brands-prices', e.currentTarget);
+    });
+    document.getElementById('refreshBtn').addEventListener('click', fetchPrices);
+    fetchPrices();
+  }
 
-  // ---- PIN gate ----
+  // ===========================================================
+  // WHITE WOOD MODULE
+  // ===========================================================
+  const WW_SIZES = [
+    { size: "1x2", pcs: 200, cbm: 775 },
+    { size: "1x4", pcs: 100, cbm: 775 },
+    { size: "2x2", pcs: 100, cbm: 775 },
+    { size: "2x3", pcs: 66,  cbm: 775 },
+    { size: "2x4", pcs: 50,  cbm: 775 },
+    { size: "3x3", pcs: 44,  cbm: 760 },
+    { size: "4x4", pcs: 25,  cbm: 800 },
+  ];
+
+  function initWhiteWood(){
+    const sizeSelect = document.getElementById('wwSize');
+    const pcsInput = document.getElementById('wwPcs');
+    const cbmInput = document.getElementById('wwCbm');
+    const resultValue = document.getElementById('wwResult');
+    const resultFormula = document.getElementById('wwFormula');
+
+    WW_SIZES.forEach((s, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = s.size;
+      sizeSelect.appendChild(opt);
+    });
+
+    function applyDefaults(){
+      const s = WW_SIZES[Number(sizeSelect.value)];
+      pcsInput.value = s.pcs;
+      cbmInput.value = s.cbm;
+      calc();
+    }
+    function calc(){
+      const pcs = parseFloat(pcsInput.value);
+      const cbm = parseFloat(cbmInput.value);
+      if(!pcs || pcs <= 0 || isNaN(cbm)){ resultValue.textContent = '—'; resultFormula.textContent = '—'; return; }
+      const perPiece = cbm / pcs;
+      resultValue.textContent = perPiece.toFixed(3);
+      resultFormula.textContent = `${cbm} ÷ ${pcs} pcs`;
+    }
+
+    sizeSelect.addEventListener('change', applyDefaults);
+    pcsInput.addEventListener('input', calc);
+    cbmInput.addEventListener('input', calc);
+    applyDefaults();
+  }
+
+  // ===========================================================
+  // PIN GATE
+  // ===========================================================
   function tryUnlock(value){
     const errEl = document.getElementById('pinError');
     if (value === SITE_PIN){
@@ -650,12 +605,8 @@
       document.getElementById('pinInput').focus();
     }
   }
-  document.getElementById('pinSubmit').addEventListener('click', () => {
-    tryUnlock(document.getElementById('pinInput').value.trim());
-  });
-  document.getElementById('pinInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') tryUnlock(e.target.value.trim());
-  });
+  document.getElementById('pinSubmit').addEventListener('click', () => tryUnlock(document.getElementById('pinInput').value.trim()));
+  document.getElementById('pinInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(e.target.value.trim()); });
   try{
     if (sessionStorage.getItem(PIN_SESSION_KEY) === '1'){
       document.body.classList.remove('locked');
@@ -663,7 +614,7 @@
     }
   }catch(e){}
 
-  fetchPrices();
+  renderModuleGrid();
 </script>
 
 </body>
