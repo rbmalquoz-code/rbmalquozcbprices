@@ -154,6 +154,33 @@
     .band{ padding:18px 16px; }
   }
 
+  /* ---- Gypsum ceiling module ---- */
+  .gc-tabs{ display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+  .gc-tab{
+    background:var(--card); border:1px solid var(--line); color:var(--ink-soft);
+    font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:11.5px;
+    padding:7px 12px; cursor:pointer;
+  }
+  .gc-tab.active{ background:var(--steel-dark); color:#EDEAE1; border-color:var(--steel-dark); }
+  .gc-section{ display:none; }
+  .gc-section.active{ display:block; }
+  .gc-card{ background:var(--card); border:1px solid var(--line); margin-top:12px; padding:22px 24px 26px; }
+  .gc-inputs{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .gc-inputs .ww-field{ flex:1; min-width:160px; }
+  .gc-results{ width:100%; border-collapse:collapse; margin-top:16px; }
+  .gc-results th{ text-align:left; font-size:11px; font-weight:600; color:var(--ink-soft); padding:8px 0; border-bottom:1px solid var(--line); }
+  .gc-results th.num{ text-align:right; }
+  .gc-results td{ padding:9px 0; border-bottom:1px solid var(--line-soft); font-size:14px; }
+  .gc-results td.num{ text-align:right; font-family:'IBM Plex Mono', monospace; font-weight:600; }
+  .gc-manual-note{
+    margin-top:14px; padding:10px 12px; background:#F3E4DE; color:#7A3218;
+    font-size:11px; line-height:1.5;
+  }
+  .gc-manual-note input{
+    width:100%; margin-top:6px; font-family:'IBM Plex Mono', monospace; font-size:13px;
+    padding:7px 9px; border:1px solid var(--line); background:#fff; color:var(--ink);
+  }
+
   /* ---- PIN lock ---- */
   #lockScreen{ position:fixed; inset:0; background:var(--steel-dark); display:flex; align-items:center; justify-content:center; padding:20px; z-index:9999; }
   #lockScreen.hidden{ display:none; }
@@ -250,6 +277,16 @@
     </div>
   </div>
 
+  <!-- ============ GYPSUM CEILING CALCULATOR ============ -->
+  <div class="screen" id="screen-gypsum-ceiling">
+    <div class="module-head">
+      <h1>Gypsum Ceiling — Calculator</h1>
+      <div class="unit">Material quantity from area (sqm)</div>
+    </div>
+    <div class="gc-tabs" id="gcTabs"></div>
+    <div id="gcSections"></div>
+  </div>
+
 </div>
 
 <div id="captureAll" style="position:absolute; left:-9999px; top:0; width:760px;"></div>
@@ -283,10 +320,19 @@
       tagLabel: 'INTERNAL — COST TOOL',
       init: initWhiteWood,
     },
+    {
+      id: 'gypsum-ceiling',
+      icon: '🏗️',
+      title: 'Gypsum Ceiling Calculator',
+      desc: 'Tile, board, partition & rockwool quantities from sqm — internal use.',
+      tagClass: 'internal',
+      tagLabel: 'INTERNAL — COST TOOL',
+      init: initGypsumCeiling,
+    },
     // Next tool goes here, e.g.:
-    // { id: 'gypsum-ceiling', icon: '🏗️', title: 'Gypsum Ceiling',
+    // { id: 'new-thing', icon: '📦', title: 'New Thing',
     //   desc: '...', tagClass: 'customer', tagLabel: 'CUSTOMER PRICE LIST',
-    //   init: initGypsumCeiling },
+    //   init: initNewThing },
   ];
 
   const initedModules = new Set();
@@ -587,6 +633,152 @@
     pcsInput.addEventListener('input', calc);
     cbmInput.addEventListener('input', calc);
     applyDefaults();
+  }
+
+  // ===========================================================
+  // GYPSUM CEILING MODULE
+  // ===========================================================
+  // Formulas below come straight from your own reference sheet's
+  // numbers, cross-checked line by line:
+  //  - "mul" sections:  PCS = Total SQM × FIX
+  //  - "div" sections:  PCS = Total SQM ÷ FIX
+  //  - "chain":         later items = a multiple of an earlier
+  //                      item's computed PCS (matches your sheet's
+  //                      own "X1" / "X2" labels)
+  //  - "manual":        can't be derived from area alone (depends
+  //                      on room perimeter/shape) — typed in directly
+  const GC_SECTIONS = [
+    {
+      id: 'ceiling-60x60',
+      label: 'Ceiling Tile 60x60',
+      mode: 'mul',
+      defaultSqm: 80,
+      items: [
+        { name: 'Ceiling Tile 60x60', fix: 2.77 },
+        { name: 'Brooer Cross Tee 60', fix: 1.3 },
+        { name: 'Brooer Cross Tee 120', fix: 1.3 },
+        { name: 'Brooer Main Tee', fix: 0.225 },
+        { name: 'Brooer Wall Angle', fix: 0.225 },
+      ],
+    },
+    {
+      id: 'gypsum-board',
+      label: 'Gypsum Board (channel)',
+      mode: 'div',
+      defaultSqm: 100,
+      items: [
+        { name: 'Gypsum Board', fix: 2.88, mult: 1 },
+        { name: 'Furring Channel', fix: 2.88, mult: 2 },
+        { name: 'Main Channel', fix: 2.88, mult: 1 },
+      ],
+      manualItem: { name: 'GI Wall Angle', hint: 'Based on room perimeter, not sqm — measure on site and enter the piece count directly.' },
+    },
+    {
+      id: 'aluminium-tile',
+      label: 'Aluminium Tile 60x60',
+      mode: 'mul',
+      defaultSqm: 33,
+      items: [
+        { name: 'Aluminium Tile 60x60 (clip-in)', fix: 2.77 },
+        { name: 'Spring Tee', fix: 0.553 },
+        { name: 'Alu. U Channel', fix: 0.33 },
+        { name: 'Main Channel GI', fix: 0.265 },
+      ],
+    },
+    {
+      id: 'gypsum-partition',
+      label: 'Gypsum Partition',
+      mode: 'chain',
+      defaultSqm: 580,
+      items: [
+        { name: 'Gypsum Board', fix: 2.88, chainMult: 1, base: true },
+        { name: 'Track', chainMult: 1 },
+        { name: 'Stud', chainMult: 2 },
+      ],
+    },
+    {
+      id: 'rockwool',
+      label: 'Rockwool',
+      mode: 'div',
+      defaultSqm: 10,
+      items: [
+        { name: 'Rockwool Roll', fix: 0.72, mult: 1 },
+      ],
+    },
+  ];
+
+  function gcCompute(section, sqm){
+    if(isNaN(sqm) || sqm <= 0) return section.items.map(it => ({ name: it.name, qty: null }));
+    if(section.mode === 'mul'){
+      return section.items.map(it => ({ name: it.name, qty: sqm * it.fix }));
+    }
+    if(section.mode === 'div'){
+      return section.items.map(it => ({ name: it.name, qty: (sqm / it.fix) * (it.mult || 1) }));
+    }
+    if(section.mode === 'chain'){
+      const base = section.items.find(it => it.base);
+      const basePcs = sqm / base.fix;
+      return section.items.map(it => ({ name: it.name, qty: basePcs * it.chainMult }));
+    }
+    return [];
+  }
+
+  function initGypsumCeiling(){
+    const tabsEl = document.getElementById('gcTabs');
+    const sectionsEl = document.getElementById('gcSections');
+
+    GC_SECTIONS.forEach((section, i) => {
+      const tab = document.createElement('button');
+      tab.className = 'gc-tab' + (i === 0 ? ' active' : '');
+      tab.textContent = section.label;
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.gc-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.gc-section').forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('gc-section-' + section.id).classList.add('active');
+      });
+      tabsEl.appendChild(tab);
+
+      const box = document.createElement('div');
+      box.className = 'gc-section' + (i === 0 ? ' active' : '');
+      box.id = 'gc-section-' + section.id;
+      box.innerHTML = `
+        <div class="gc-card">
+          <div class="ww-field" style="max-width:220px;">
+            <label>Total SQM</label>
+            <input type="number" step="0.01" class="gc-sqm-input" data-section="${section.id}" value="${section.defaultSqm}">
+          </div>
+          <table class="gc-results">
+            <thead><tr><th>Item</th><th class="num">PCS</th></tr></thead>
+            <tbody class="gc-results-body" data-section="${section.id}"></tbody>
+          </table>
+          ${section.manualItem ? `
+            <div class="gc-manual-note">
+              <b>${section.manualItem.name}:</b> ${section.manualItem.hint}
+              <input type="text" placeholder="Enter piece count from site measurement" class="gc-manual-input" data-section="${section.id}">
+            </div>
+          ` : ''}
+        </div>
+      `;
+      sectionsEl.appendChild(box);
+    });
+
+    function renderSection(sectionId){
+      const section = GC_SECTIONS.find(s => s.id === sectionId);
+      const input = sectionsEl.querySelector(`.gc-sqm-input[data-section="${sectionId}"]`);
+      const sqm = parseFloat(input.value);
+      const results = gcCompute(section, sqm);
+      const body = sectionsEl.querySelector(`.gc-results-body[data-section="${sectionId}"]`);
+      body.innerHTML = results.map(r => `
+        <tr><td>${r.name}</td><td class="num">${r.qty === null ? '—' : r.qty.toFixed(2)}</td></tr>
+      `).join('');
+    }
+
+    sectionsEl.querySelectorAll('.gc-sqm-input').forEach(inp => {
+      inp.addEventListener('input', () => renderSection(inp.dataset.section));
+    });
+
+    GC_SECTIONS.forEach(s => renderSection(s.id));
   }
 
   // ===========================================================
