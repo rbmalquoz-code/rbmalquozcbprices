@@ -35,7 +35,6 @@
     margin:0 auto;
   }
 
-  /* ---- Header band ---- */
   .band{
     background:var(--steel-dark);
     color:#EDEAE1;
@@ -75,34 +74,32 @@
     margin-top:3px;
   }
 
-  /* ---- Tabs ---- */
-  .tabs{
+  .sync-bar{
+    background:#F4F2EC;
+    border:1px solid var(--line);
+    border-top:none;
+    padding:9px 26px;
     display:flex;
-    background:var(--steel-dark);
-    border-top:1px solid rgba(255,255,255,0.12);
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    font-size:11.5px;
+    color:var(--ink-soft);
   }
-  .tab-btn{
-    flex:1;
+  .sync-bar.error{ background:#F3E4DE; color:#7A3218; }
+  .sync-bar button{
     background:transparent;
-    border:none;
-    color:#9FA9B3;
+    border:1px solid var(--ink-soft);
+    color:var(--ink-soft);
     font-family:'IBM Plex Sans', sans-serif;
+    font-size:11px;
     font-weight:600;
-    font-size:13px;
-    padding:12px 10px;
+    padding:4px 10px;
     cursor:pointer;
-    letter-spacing:0.2px;
-    border-bottom:3px solid transparent;
-    transition:color 0.15s ease, border-color 0.15s ease;
   }
-  .tab-btn.active{
-    color:#EDEAE1;
-    border-bottom-color:var(--rust);
-  }
-  .tab-btn:not(.active):hover{ color:#D3D8DC; }
-
-  .view{ display:none; }
-  .view.active{ display:block; }
+  .sync-bar.error button{ border-color:#7A3218; color:#7A3218; }
+  .sync-bar button:hover{ opacity:0.75; }
 
   .list-intro{
     padding:16px 2px 4px;
@@ -124,7 +121,6 @@
     color:var(--ink-soft);
   }
 
-  /* ---- Brand cards (each is an individual JPG-capture target) ---- */
   .brand-card{
     background:var(--card);
     border:1px solid var(--line);
@@ -227,7 +223,6 @@
     line-height:1.4;
   }
 
-  /* ---- Controls ---- */
   .brand-controls{
     display:flex;
     justify-content:flex-end;
@@ -268,80 +263,69 @@
   button#downloadAllBtn:hover{ background:#8C3717; }
   button#downloadAllBtn:disabled{ background:#B9AFA5; cursor:progress; }
 
-  /* ---- Edit view ---- */
-  #editView{
+  @media (max-width:480px){
+    .card-head, thead th, tbody tr.item-row td, .card-foot, .sync-bar{
+      padding-left:16px;
+      padding-right:16px;
+    }
+    .band{ padding:18px 16px; }
+  }
+
+  /* ---- PIN lock screen ---- */
+  #lockScreen{
+    position:fixed;
+    inset:0;
+    background:var(--steel-dark);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:9999;
+  }
+  #lockScreen.hidden{ display:none; }
+  .lock-box{
     background:var(--card);
     border:1px solid var(--line);
-    padding:22px 26px 26px;
-    margin-top:14px;
+    padding:34px 30px;
+    max-width:320px;
+    width:100%;
+    text-align:center;
   }
-  .edit-field{
-    margin-bottom:18px;
-  }
-  .edit-field label{
-    display:block;
-    font-size:11px;
-    font-weight:600;
-    color:var(--ink-soft);
-    margin-bottom:5px;
-  }
-  .edit-field input[type=text]{
-    width:220px;
-    max-width:100%;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:14px;
-    padding:8px 10px;
-    border:1px solid var(--line);
-    background:#fff;
-    color:var(--ink);
-  }
-  .edit-brand{
+  .lock-box .mark{
     font-family:'Big Shoulders Display', sans-serif;
-    font-weight:700;
-    font-size:18px;
+    font-weight:800;
+    font-size:20px;
     color:var(--steel-dark);
-    margin:22px 0 10px;
-    padding-top:14px;
-    border-top:1px solid var(--line-soft);
+    letter-spacing:0.3px;
+    margin-bottom:4px;
   }
-  .edit-brand:first-of-type{ border-top:none; padding-top:0; margin-top:4px; }
-  .edit-row{
-    display:grid;
-    grid-template-columns:70px 1fr;
-    align-items:center;
-    gap:14px;
-    padding:8px 0;
-    border-bottom:1px solid var(--line-soft);
-  }
-  .edit-row .size-label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
+  .lock-box .mark span{ color:var(--rust); }
+  .lock-box p{
+    font-size:12.5px;
     color:var(--ink-soft);
+    margin:0 0 20px;
   }
-  .edit-row input.price-input{
-    width:140px;
-    max-width:100%;
+  #pinInput{
+    width:100%;
     font-family:'IBM Plex Mono', monospace;
-    font-size:14.5px;
-    font-weight:600;
-    padding:9px 10px;
+    font-size:22px;
+    letter-spacing:10px;
+    text-align:center;
+    padding:12px 10px;
     border:1px solid var(--line);
     background:#fff;
     color:var(--ink);
+    box-sizing:border-box;
   }
-  .edit-row input.price-input::placeholder{ color:#B9B3A5; font-weight:400; }
-  .edit-hint{
-    font-size:11px;
-    color:var(--ink-soft);
-    margin-top:2px;
+  #pinError{
+    font-size:12px;
+    color:var(--rust);
+    margin-top:10px;
+    min-height:16px;
   }
-  .edit-actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-    padding-top:20px;
-  }
-  button#saveBtn{
+  #pinSubmit{
+    width:100%;
+    margin-top:16px;
     background:var(--steel);
     color:#F4F2EC;
     border:none;
@@ -352,26 +336,25 @@
     cursor:pointer;
     letter-spacing:0.2px;
   }
-  button#saveBtn:hover{ background:var(--steel-dark); }
-  .save-status{
-    font-size:12px;
-    color:var(--steel-dark);
-    align-self:center;
-    opacity:0;
-    transition:opacity 0.2s ease;
-  }
-  .save-status.show{ opacity:1; }
+  #pinSubmit:hover{ background:var(--steel-dark); }
 
-  @media (max-width:480px){
-    .card-head, thead th, tbody tr.item-row td, .card-foot, #editView{
-      padding-left:16px;
-      padding-right:16px;
-    }
-    .band{ padding:18px 16px; }
+  body.locked > .wrap,
+  body.locked #captureAll{
+    display:none;
   }
 </style>
 </head>
-<body>
+<body class="locked">
+
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="mark">REALITY <span>BUILDING MATERIALS</span></div>
+    <p>Enter the 6-digit PIN to view prices.</p>
+    <input type="password" id="pinInput" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="off">
+    <div id="pinError"></div>
+    <button id="pinSubmit">Unlock</button>
+  </div>
+</div>
 
 <div class="wrap">
 
@@ -383,99 +366,168 @@
     <div class="updated">PRICES UPDATED<b id="updatedDate">—</b></div>
   </div>
 
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="priceView">Price List</button>
-    <button class="tab-btn" data-tab="editView">Edit Prices</button>
+  <div class="sync-bar" id="syncBar">
+    <span id="syncStatus">Loading latest prices…</span>
+    <button id="refreshBtn">Refresh</button>
   </div>
 
-  <div id="priceView" class="view active">
-    <div class="list-intro">
-      <h1>Cement Board — Price List</h1>
-      <div class="unit">AED per sheet, ex-showroom</div>
-    </div>
-
-    <div id="brandCards"><!-- one .brand-card + download button per brand, injected by JS --></div>
-
-    <div class="all-controls">
-      <button id="downloadAllBtn">Download full price list (JPG)</button>
-    </div>
+  <div class="list-intro">
+    <h1>Cement Board — Price List</h1>
+    <div class="unit">AED per sheet, ex-showroom</div>
   </div>
 
-  <div id="editView" class="view">
-    <div class="edit-field">
-      <label for="dateInput">Prices updated (shown at top of page)</label>
-      <input type="text" id="dateInput" placeholder="e.g. 16 Sep 2026">
-    </div>
+  <div id="brandCards"></div>
 
-    <div id="editFields"><!-- brand/size price inputs injected by JS --></div>
-    <div class="edit-hint">Leave a price blank to show "On request" on the price list.</div>
-
-    <div class="edit-actions">
-      <span class="save-status" id="saveStatus">Saved ✓</span>
-      <button id="saveBtn">Save &amp; update price list</button>
-    </div>
+  <div class="all-controls">
+    <button id="downloadAllBtn">Download full price list (JPG)</button>
   </div>
 
 </div>
 
-<!-- Hidden wrapper used only for the "download full list" capture -->
 <div id="captureAll" style="position:absolute; left:-9999px; top:0; width:760px;"></div>
 
 <script>
   // ---------------------------------------------------------------
-  // DEFAULT PRICES — used the first time the page is opened. After
-  // that, whatever is saved from the "Edit Prices" tab (stored in
-  // this browser) takes over. price: null -> shows "On request".
+  // Prices are pulled live from a published Google Sheet tab (CSV),
+  // with columns: Brand, Size, Price. Blank price -> "On request".
+  // Update prices by editing that sheet — this page just displays
+  // whatever it last fetched from there.
   // ---------------------------------------------------------------
-  const DEFAULT_LAST_UPDATED = "16 Sep 2026";
-  const DEFAULT_PRICE_DATA = [
-    { brand: "Unicem", items: [
-      { size: "6mm",  price: 43 },
-      { size: "9mm",  price: 56 },
-      { size: "12mm", price: 75 },
-      { size: "18mm", price: 108 },
-    ]},
-    { brand: "C-Board", items: [
-      { size: "6mm",  price: 39 },
-      { size: "9mm",  price: null },
-      { size: "12mm", price: null },
-      { size: "18mm", price: 102 },
-    ]},
-    { brand: "El Khayyat", items: [
-      { size: "6mm",  price: 37 },
-      { size: "9mm",  price: null },
-      { size: "12mm", price: null },
-      { size: "18mm", price: null },
-    ]},
-  ];
-  // ---------------------------------------------------------------
+  const SHEET_DOC_KEY = "2PACX-1vRga_4VlPWTqDrLG4ooGHgok1kgVHn2iN-zUXPEsgnjsmUY9INu_m0tywddVORvZJteM7ZmryuT8Q8d";
+  const SHEET_GID = "118355134";
+  const CSV_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_DOC_KEY}/pub?gid=${SHEET_GID}&single=true&output=csv`;
 
-  const STORAGE_KEY = 'realitybm_price_data_v1';
-  const DATE_KEY = 'realitybm_price_updated_v1';
+  const SITE_PIN = "786110";
+  const PIN_SESSION_KEY = 'realitybm_pin_ok_v1';
+  const CACHE_KEY = 'realitybm_price_cache_v1';
   const CONTACT_HTML = `showroom@realitybm.com<br>+971 56 500 3029 · +971 56 680 3874`;
 
-  function loadState(){
-    let data, date;
-    try{
-      const raw = localStorage.getItem(STORAGE_KEY);
-      data = raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(DEFAULT_PRICE_DATA));
-    }catch(e){
-      data = JSON.parse(JSON.stringify(DEFAULT_PRICE_DATA));
+  let state = { date: "—", data: [] };
+
+  // ---- CSV parsing ----
+  function parseCSV(text){
+    const rows = [];
+    let row = [], field = '', inQuotes = false;
+    for(let i = 0; i < text.length; i++){
+      const c = text[i];
+      if(inQuotes){
+        if(c === '"'){
+          if(text[i+1] === '"'){ field += '"'; i++; }
+          else inQuotes = false;
+        } else field += c;
+      } else {
+        if(c === '"') inQuotes = true;
+        else if(c === ','){ row.push(field); field = ''; }
+        else if(c === '\n' || c === '\r'){
+          if(field !== '' || row.length){ row.push(field); rows.push(row); }
+          field = ''; row = [];
+          if(c === '\r' && text[i+1] === '\n') i++;
+        } else field += c;
+      }
     }
-    date = localStorage.getItem(DATE_KEY) || DEFAULT_LAST_UPDATED;
-    return { data, date };
+    if(field !== '' || row.length){ row.push(field); rows.push(row); }
+    return rows;
   }
 
-  function saveState(data, date){
-    try{
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      localStorage.setItem(DATE_KEY, date);
-    }catch(e){
-      console.error('Could not save to this browser:', e);
+  // Finds the header row by looking for cells containing "brand" /
+  // "size" / "price" anywhere in the sheet, then reads data from
+  // whichever columns those headers sit in — so it doesn't matter
+  // if there are blank leading rows/columns (as in this sheet, where
+  // headers are on row 4 and column A is empty).
+  function findColumns(rows){
+    for(let i = 0; i < rows.length; i++){
+      const row = rows[i];
+      let brandCol = -1, sizeCol = -1, priceCol = -1;
+      row.forEach((cell, idx) => {
+        const c = (cell || '').trim().toLowerCase();
+        if(c.includes('brand')) brandCol = idx;
+        else if(c.includes('size')) sizeCol = idx;
+        else if(c.includes('price')) priceCol = idx;
+      });
+      if(brandCol !== -1 && sizeCol !== -1 && priceCol !== -1){
+        return { headerRow: i, brandCol, sizeCol, priceCol };
+      }
     }
+    return null;
   }
 
-  let state = loadState();
+  function rowsToState(rows){
+    const nonEmptyRows = rows.filter(r => r.some(c => (c || '').trim() !== ''));
+    const cols = findColumns(nonEmptyRows);
+    if(!cols) return [];
+
+    const dataRows = nonEmptyRows.slice(cols.headerRow + 1);
+    const groups = [];
+    const byBrand = {};
+    let lastBrand = '';
+
+    dataRows.forEach(r => {
+      const brandRaw = (r[cols.brandCol] || '').trim();
+      const size = (r[cols.sizeCol] || '').trim();
+      const priceRaw = (r[cols.priceCol] || '').trim();
+      if(!size) return;
+      const brand = brandRaw || lastBrand;
+      lastBrand = brand;
+      if(!brand) return;
+
+      if(!byBrand[brand]){
+        byBrand[brand] = { brand, items: [] };
+        groups.push(byBrand[brand]);
+      }
+      const num = parseFloat(priceRaw.replace(/[^0-9.\-]/g, ''));
+      byBrand[brand].items.push({
+        size,
+        price: (priceRaw === '' || isNaN(num)) ? null : num
+      });
+    });
+
+    return groups;
+  }
+
+  function todayLabel(){
+    return new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function setSyncStatus(msg, isError){
+    const bar = document.getElementById('syncBar');
+    document.getElementById('syncStatus').textContent = msg;
+    bar.classList.toggle('error', !!isError);
+  }
+
+  function saveCache(data){
+    try{ localStorage.setItem(CACHE_KEY, JSON.stringify({ date: todayLabel(), data })); }catch(e){}
+  }
+  function loadCache(){
+    try{
+      const raw = localStorage.getItem(CACHE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+
+  async function fetchPrices(){
+    setSyncStatus('Loading latest prices…', false);
+    try{
+      const res = await fetch(CSV_URL, { cache: 'no-store' });
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      const groups = rowsToState(parseCSV(text));
+      if(!groups.length) throw new Error('No rows found');
+      state = { date: todayLabel(), data: groups };
+      saveCache(groups);
+      setSyncStatus('Synced from Google Sheet · ' + state.date, false);
+      renderPriceList();
+    }catch(err){
+      console.error('Price sheet fetch failed:', err);
+      const cached = loadCache();
+      if(cached && cached.data && cached.data.length){
+        state = cached;
+        setSyncStatus('Could not reach the price sheet — showing last saved prices (' + cached.date + ')', true);
+      } else {
+        setSyncStatus('Could not load prices. Check your connection and hit Refresh.', true);
+      }
+      renderPriceList();
+    }
+  }
 
   function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); }
 
@@ -530,7 +582,6 @@
       container.appendChild(controls);
     });
 
-    // Build the hidden "all brands" capture wrapper
     const captureAll = document.getElementById('captureAll');
     captureAll.innerHTML = `
       <div style="background:#F4F2EC; font-family:'IBM Plex Sans', sans-serif;">
@@ -561,59 +612,6 @@
     `;
   }
 
-  function renderEditForm(){
-    document.getElementById('dateInput').value = state.date;
-    const container = document.getElementById('editFields');
-    container.innerHTML = '';
-    state.data.forEach((group, gi) => {
-      const heading = document.createElement('div');
-      heading.className = 'edit-brand';
-      heading.textContent = group.brand;
-      container.appendChild(heading);
-
-      group.items.forEach((item, ii) => {
-        const row = document.createElement('div');
-        row.className = 'edit-row';
-        const val = (item.price === null || item.price === undefined) ? '' : item.price;
-        row.innerHTML = `
-          <div class="size-label">${item.size}</div>
-          <input type="text" inputmode="decimal" class="price-input"
-                 data-group="${gi}" data-item="${ii}"
-                 placeholder="On request" value="${val}">
-        `;
-        container.appendChild(row);
-      });
-    });
-  }
-
-  function switchTab(tabId){
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
-    document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === tabId));
-    if(tabId === 'editView') renderEditForm();
-  }
-
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-  });
-
-  document.getElementById('saveBtn').addEventListener('click', () => {
-    const inputs = document.querySelectorAll('.price-input');
-    inputs.forEach(inp => {
-      const gi = Number(inp.dataset.group);
-      const ii = Number(inp.dataset.item);
-      const raw = inp.value.trim();
-      state.data[gi].items[ii].price = raw === '' ? null : Number(raw);
-    });
-    state.date = document.getElementById('dateInput').value.trim() || DEFAULT_LAST_UPDATED;
-    saveState(state.data, state.date);
-    renderPriceList();
-
-    const status = document.getElementById('saveStatus');
-    status.classList.add('show');
-    setTimeout(() => status.classList.remove('show'), 1800);
-    switchTab('priceView');
-  });
-
   async function downloadElementAsJPG(elementId, filenameBase, btn){
     const originalLabel = btn ? btn.textContent : null;
     if(btn){ btn.disabled = true; btn.textContent = 'Preparing...'; }
@@ -636,8 +634,36 @@
   document.getElementById('downloadAllBtn').addEventListener('click', (e) => {
     downloadElementAsJPG('captureAll', 'realitybm-all-brands-prices', e.currentTarget);
   });
+  document.getElementById('refreshBtn').addEventListener('click', fetchPrices);
 
-  renderPriceList();
+  // ---- PIN gate ----
+  function tryUnlock(value){
+    const errEl = document.getElementById('pinError');
+    if (value === SITE_PIN){
+      document.body.classList.remove('locked');
+      document.getElementById('lockScreen').classList.add('hidden');
+      try{ sessionStorage.setItem(PIN_SESSION_KEY, '1'); }catch(e){}
+      errEl.textContent = '';
+    } else {
+      errEl.textContent = 'Incorrect PIN — try again.';
+      document.getElementById('pinInput').value = '';
+      document.getElementById('pinInput').focus();
+    }
+  }
+  document.getElementById('pinSubmit').addEventListener('click', () => {
+    tryUnlock(document.getElementById('pinInput').value.trim());
+  });
+  document.getElementById('pinInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') tryUnlock(e.target.value.trim());
+  });
+  try{
+    if (sessionStorage.getItem(PIN_SESSION_KEY) === '1'){
+      document.body.classList.remove('locked');
+      document.getElementById('lockScreen').classList.add('hidden');
+    }
+  }catch(e){}
+
+  fetchPrices();
 </script>
 
 </body>
